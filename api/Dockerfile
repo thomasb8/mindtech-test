@@ -1,20 +1,18 @@
-FROM node:24-alpine3.22 AS dev
-WORKDIR /app
+FROM node:24-alpine3.22 AS builder
+WORKDIR /app/api
 RUN npm install -g pnpm
-COPY package.json pnpm-lock.yaml ./
+COPY pnpm-lock.yaml pnpm-workspace.yaml ../
+COPY api/package.json ./
 RUN pnpm install --frozen-lockfile
-EXPOSE 3000
-CMD ["pnpm", "start:dev"]
-
-FROM dev AS builder
-COPY . .
+COPY api/ .
 RUN pnpm build
 
 FROM node:24-alpine3.22 AS runner
-WORKDIR /app
+WORKDIR /app/api
 RUN npm install -g pnpm
-COPY package.json pnpm-lock.yaml ./
+COPY pnpm-lock.yaml pnpm-workspace.yaml ../
+COPY api/package.json ./
 RUN pnpm install --frozen-lockfile --prod
-COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/api/dist ./dist
 EXPOSE 3000
 CMD ["node", "dist/main"]

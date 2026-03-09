@@ -1,23 +1,10 @@
 services:
   api:
     build:
-      context: ./api
-      target: dev
+      context: .
+      dockerfile: api/Dockerfile
     ports:
       - "3000:3000"
-    volumes:
-      - ./api:/app
-      - /app/node_modules
-
-  frontend:
-    build:
-      context: ./frontend
-      target: dev
-    ports:
-      - "3001:3001"
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
 
   db:
     image: postgres:17-alpine

@@ -6,11 +6,14 @@
   "scripts": {
     "dev:api": "pnpm --filter api run start:dev",
     "dev:frontend": "pnpm --filter frontend run dev",
-    "dev": "pnpm run dev:api && pnpm run dev:frontend",
+    "dev": "concurrently \"pnpm run dev:api\" \"pnpm run dev:frontend\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "packageManager": "pnpm@10.21.0"
+  "packageManager": "pnpm@10.21.0",
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
 }
