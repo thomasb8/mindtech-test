@@ -7,11 +7,9 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useLogin } from '@/lib/hooks/useAuth';
-import { useRedirectIfAuth } from '@/lib/hooks/useAuthRedirect';
 
 export default function LoginPage() {
   const router = useRouter();
-  useRedirectIfAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const login = useLogin();
@@ -19,8 +17,7 @@ export default function LoginPage() {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     login.mutate({ email, password }, {
-      onSuccess: ({ access_token }) => {
-        localStorage.setItem('token', access_token);
+      onSuccess: () => {
         router.push('/restaurants');
       },
     });

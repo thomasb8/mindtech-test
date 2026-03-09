@@ -1,12 +1,10 @@
 'use client';
 
 import Link from 'next/link';
-import { useRequireAuth } from '@/lib/hooks/useAuthRedirect';
 import { useRestaurants } from '@/lib/hooks/useRestaurants';
 import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 
 export default function RestaurantsPage() {
-  useRequireAuth();
   const { data: restaurants, isLoading, error } = useRestaurants();
 
   if (isLoading) return <div className="p-8">Loading...</div>;

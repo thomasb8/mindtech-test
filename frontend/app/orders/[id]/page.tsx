@@ -2,12 +2,10 @@
 
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import { useRequireAuth } from '@/lib/hooks/useAuthRedirect';
 import { useOrder } from '@/lib/hooks/useOrders';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 
 export default function OrderPage() {
-  useRequireAuth();
   const { id } = useParams<{ id: string }>();
   const { data: order, isLoading, error } = useOrder(Number(id));
 

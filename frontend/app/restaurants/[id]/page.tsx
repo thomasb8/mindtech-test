@@ -2,14 +2,12 @@
 
 import { useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { useRequireAuth } from '@/lib/hooks/useAuthRedirect';
 import { useRestaurant } from '@/lib/hooks/useRestaurants';
 import { useCreateOrder } from '@/lib/hooks/useOrders';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 
 export default function RestaurantPage() {
-  useRequireAuth();
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
   const { data: restaurant, isLoading, error } = useRestaurant(Number(id));

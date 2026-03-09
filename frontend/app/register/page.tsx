@@ -7,11 +7,9 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useRegister } from '@/lib/hooks/useAuth';
-import { useRedirectIfAuth } from '@/lib/hooks/useAuthRedirect';
 
 export default function RegisterPage() {
   const router = useRouter();
-  useRedirectIfAuth();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
