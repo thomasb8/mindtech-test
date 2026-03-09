@@ -12,6 +12,7 @@ cp frontend/.env.example frontend/.env.local
 cd api
 npx prisma migrate deploy
 npx prisma generate
+pnpm build
 pnpm seed
 cd ..
 pnpm dev
