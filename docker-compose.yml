@@ -5,6 +5,12 @@ services:
       dockerfile: api/Dockerfile
     ports:
       - "3000:3000"
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/mindtech?schema=public
+      JWT_SECRET: supersecret
+      CORS_ORIGINS: http://localhost:3001
+    depends_on:
+      - db
 
   db:
     image: postgres:17-alpine
