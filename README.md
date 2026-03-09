@@ -9,6 +9,11 @@ pnpm install
 docker compose up -d db
 cp api/.env.example api/.env
 cp frontend/.env.example frontend/.env.local
+cd api
+npx prisma migrate deploy
+npx prisma generate
+pnpm seed
+cd ..
 pnpm dev
 ```
 
