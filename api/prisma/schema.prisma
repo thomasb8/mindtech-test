@@ -14,4 +14,42 @@ model User {
   email     String   @unique
   password  String
   createdAt DateTime @default(now())
+  orders    Order[]
+}
+
+model Restaurant {
+  id          Int        @id @default(autoincrement())
+  name        String
+  description String?
+  menuItems   MenuItem[]
+  orders      Order[]
+}
+
+model MenuItem {
+  id           Int         @id @default(autoincrement())
+  name         String
+  price        Float
+  restaurantId Int
+  restaurant   Restaurant  @relation(fields: [restaurantId], references: [id])
+  orderItems   OrderItem[]
+}
+
+model Order {
+  id           Int         @id @default(autoincrement())
+  userId       Int
+  restaurantId Int
+  status       String      @default("pending")
+  createdAt    DateTime    @default(now())
+  user         User        @relation(fields: [userId], references: [id])
+  restaurant   Restaurant  @relation(fields: [restaurantId], references: [id])
+  items        OrderItem[]
+}
+
+model OrderItem {
+  id         Int      @id @default(autoincrement())
+  orderId    Int
+  menuItemId Int
+  quantity   Int
+  order      Order    @relation(fields: [orderId], references: [id])
+  menuItem   MenuItem @relation(fields: [menuItemId], references: [id])
 }
